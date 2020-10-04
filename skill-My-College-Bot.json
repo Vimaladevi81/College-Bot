@@ -1,0 +1,836 @@
+{
+  "intents": [
+    {
+      "intent": "enquiry",
+      "examples": [
+        {
+          "text": "Is there hostel facility?"
+        },
+        {
+          "text": "Is there transport facility?"
+        },
+        {
+          "text": "what are the courses available?"
+        },
+        {
+          "text": "what are the departments available?"
+        },
+        {
+          "text": "what is the fees structure?"
+        },
+        {
+          "text": "where is the college located?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "greetings",
+      "examples": [
+        {
+          "text": "GM"
+        },
+        {
+          "text": "Good Afternoon"
+        },
+        {
+          "text": "Good Morning"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hi"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "appointment",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "appointment",
+          "synonyms": [
+            "meet",
+            "meeting",
+            "visit"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "department",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Civil Engineering",
+          "synonyms": [
+            "civil"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Computer Science and Engineering",
+          "synonyms": [
+            "computer science",
+            "CSE"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Electronics and Communication Engineering",
+          "synonyms": [
+            "ECE",
+            "electronics"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Mechanical Engineering",
+          "synonyms": [
+            "mech",
+            "mechanical"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "email",
+      "values": [
+        {
+          "type": "patterns",
+          "value": "email",
+          "patterns": [
+            "^([a-zA-Z0-9_.+-])+\\@(([a-zA-Z0-9-])+\\.)+([a-zA-Z0-9]{2,4})+$"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "enquiry",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "canteen",
+          "synonyms": [
+            "cafeteria",
+            "food"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "contact",
+          "synonyms": [
+            "contact person",
+            "contact us",
+            "information"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "courses",
+          "synonyms": [
+            "curriculums",
+            "programme",
+            "programmes",
+            "programs"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "departments",
+          "synonyms": [
+            "branches",
+            "disciplines",
+            "faculty"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "fees",
+          "synonyms": [
+            "costs",
+            "expenses",
+            "fee",
+            "payments"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "hostel",
+          "synonyms": [
+            "accomodations"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "library",
+          "synonyms": [
+            "bookstore",
+            "collection",
+            "libraries",
+            "repository"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "sports",
+          "synonyms": [
+            "athletics",
+            "multisport",
+            "sport"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "transport",
+          "synonyms": [
+            "bus",
+            "bus facility"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "greetings",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Good Afternoon",
+          "synonyms": [
+            "GA",
+            "gud aftn"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good Evening",
+          "synonyms": [
+            "GE",
+            "gud eg",
+            "gud evng"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Good Morning",
+          "synonyms": [
+            "GM",
+            "gud mg",
+            "gud mrng"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-date",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-time",
+      "values": [],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "http://www.bietedu.in/civil.html",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_1_1601800007942",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please specify the time for appointment"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_3_1601831332708",
+      "event_name": "focus",
+      "dialog_node": "handler_10_1601831332725",
+      "previous_sibling": "handler_6_1601831332725"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK! Please specify a date and time!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1601823036707",
+      "event_name": "focus",
+      "dialog_node": "handler_1_1601830897700",
+      "previous_sibling": "node_8_1601833299058"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Please provide when you want to book the appointment"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_6_1601830866009",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1601830866048",
+      "previous_sibling": "handler_9_1601830866048"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_3_1601831332708",
+      "context": {
+        "time": "@sys-time"
+      },
+      "conditions": "@sys-time",
+      "event_name": "input",
+      "dialog_node": "handler_6_1601831332725"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1601830866009",
+      "context": {
+        "date": "@sys-date"
+      },
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_9_1601830866048"
+    },
+    {
+      "type": "standard",
+      "parent": "node_9_1601834522954",
+      "context": {
+        "email": null
+      },
+      "conditions": "@email",
+      "dialog_node": "node_10_1601836304942"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#greetings || @greetings",
+      "dialog_node": "node_1_1601797289835",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Enquiries",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@enquiry",
+      "dialog_node": "node_1_1601800007942",
+      "previous_sibling": "node_5_1601823036707"
+    },
+    {
+      "type": "standard",
+      "parent": "node_1_1601800007942",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@department",
+      "dialog_node": "node_5_1601820183433"
+    },
+    {
+      "type": "frame",
+      "title": "appointment",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Thank you! Appointment booking on $date at $time successful!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "@appointment",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_5_1601823036707",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_1_1601797289835",
+      "digress_out_slots": "allow_all"
+    },
+    {
+      "type": "standard",
+      "title": "delete context",
+      "parent": "node_5_1601823036707",
+      "context": {
+        "date": null,
+        "time": null
+      },
+      "conditions": "true",
+      "dialog_node": "node_8_1601833299058"
+    },
+    {
+      "type": "standard",
+      "title": "email",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello! Thank you for providing mail ID. Your ID $email is used for further references!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "Welcome",
+      "context": {
+        "email": "@email.literal"
+      },
+      "conditions": "@email",
+      "dialog_node": "node_9_1601834522954"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The Department has well equipped computing laboratories with branded systems and a rich repository of software covering a wide spectrum of applications. The department has a common computing centre and all the computers in the college are networked over a Fast Ethernet Link. The computer centre and other laboratories are equipped with DELL and HCL systems with LCD monitors and quite number of other accessories like printers, scanners, CD -Writer, CD -ROMs, etc. The college provides unlimited broadband internet access to all the faculty and students.Seminars, Guest Lectures, National Level Symposium, Debugging Contest, Quiz Programmes, Group Discussions and Aptitude Tests are arranged periodically for the development of students. The department organizes visits to Industries and provides good scope for enhancement of knowledge to the students by guest lecturers of eminent people from Industries and Academics."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1601820183433",
+      "conditions": "@department:(Computer Science and Engineering)",
+      "dialog_node": "response_10_1601821433917"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Afternoon"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601797289835",
+      "conditions": "@greetings:(Good Afternoon)",
+      "dialog_node": "response_1_1601797969180",
+      "previous_sibling": "response_9_1601797755770"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The Civil Engineering department is being established to meet the demands arising out of rapid growth in infrastructure development in the coursing.  The department shares the faculties such as strength of Materials lab and Hydraulic lab with the established Mechanical Engineering department.  It has a team of committed faculty and staff and good infrastructure to cater to the curriculum requirements."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1601820183433",
+      "conditions": "@department:(Civil Engineering)",
+      "dialog_node": "response_1_1601823202706",
+      "previous_sibling": "response_10_1601821433917"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "agannath Institute Of Technology has set its vision “to enlighten the user community” and has a good collection of 11000 volumes, 2500 titles and 40 journals (National and International). An air –conditioned digital library with 30 systems (DELL – XP Pentium Dual core processor plus accessories) with internet facilities and a mini theatre with Audio / Video facilities are also housed in the central library. Our college library has tie - up with IIT Madras, Anna University and British Council library for using their resources. We help our students to develop their technical knowledge in their fields and to update them with current trends in the national and International levels."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "conditions": "@enquiry:library",
+      "dialog_node": "response_1_1601824681857",
+      "previous_sibling": "response_9_1601824022920"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Jagannath Institute Of Technology\n\t\nTrust Office: \t\n\nNo-4, First Cross Street, R.A Puram,\nChennai - 600 028, Tamilnadu\nPhone: 044 - 24339105, 24339106\nFax: 044 - 24334799\nEmail: info@biet.net.in"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "conditions": "@enquiry:contact",
+      "dialog_node": "response_2_1601825159513",
+      "previous_sibling": "response_1_1601824681857"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The department has well qualified and experienced faculty to disseminate subject knowledge. The department has qualified staff to impart practical skills to students to get hands on experience on machine tools. It has well equipped laboratories with the state of art facilities to cater to the university prescribed syllabus and beyond the syllabus. Manufacuring technology lab, fluid mechanics lab, strength of materials lab and CAD/CAM lab are examples of proven quality of infrastructure in the college. The department has closer interactions with reputed industries such as Super auto forge, Ucal fuel systems and Ashok leyland by way of industrial visits, inplant training and guest lectures"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1601820183433",
+      "conditions": "@department:(Mechanical Engineering)",
+      "dialog_node": "response_3_1601823239631",
+      "previous_sibling": "response_1_1601823202706"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The department of ECE has a good team of dedicated faculty and staff to enlighten the students with the academic courses.  The department has well established laboratories that cater to all the departments.  The high light of all is the Electrical Engineering and control system laboratories.  It has other laboratories such as Digital Electronics, Linear Integrated Circuits lab and Electronic circuits labs which are few of them established of high standards.  The department organizes professional activities through students forum.  The Association of Electronic Engineer was inaugurated by Mr. Pravin Shekar from the social catalyst organization.  The students have undertaken Industrial visit to Neyveli Lignite Corporation at many curricular and co-curricular activities are encouraged for over all personality development of the students"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1601820183433",
+      "conditions": "@department:(Electronics and Communication Engineering)",
+      "dialog_node": "response_3_1601823261983",
+      "previous_sibling": "response_3_1601823239631"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601797289835",
+      "conditions": "anything_else",
+      "dialog_node": "response_5_1601798035462",
+      "previous_sibling": "response_9_1601797992028"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "title": "Departments",
+            "options": [
+              {
+                "label": "Civil Engineering",
+                "value": {
+                  "input": {
+                    "text": "dept=civil"
+                  }
+                }
+              },
+              {
+                "label": "Computer Science and Engineering",
+                "value": {
+                  "input": {
+                    "text": "dept=cse"
+                  }
+                }
+              },
+              {
+                "label": "Electronics and Communication",
+                "value": {
+                  "input": {
+                    "text": "dept=ece"
+                  }
+                }
+              },
+              {
+                "label": "Mechanical Engineering",
+                "value": {
+                  "input": {
+                    "text": "dept=mech"
+                  }
+                }
+              },
+              {
+                "label": "",
+                "value": {
+                  "input": {
+                    "text": ""
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "context": {},
+      "conditions": "@enquiry:departments",
+      "dialog_node": "response_5_1601800231880",
+      "previous_sibling": "node_5_1601820183433"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "conditions": "@appointment",
+      "dialog_node": "response_6_1601831502287",
+      "previous_sibling": "response_2_1601825159513"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Separate hostels available for boys and girls.\n\nFor further details, please contact:\nJagannath Institute Of Technology\nPhone: 044 - 24339105, 24339106\nFax: 044 - 24334799\nEmail: info@biet.net.in"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "conditions": "@enquiry:hostel",
+      "dialog_node": "response_8_1601823737385",
+      "previous_sibling": "response_5_1601800231880"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Morning"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601797289835",
+      "conditions": "@greetings:(Good Morning)",
+      "dialog_node": "response_9_1601797755770"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Good Evening"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601797289835",
+      "conditions": "@greetings:(Good Evening)",
+      "dialog_node": "response_9_1601797992028",
+      "previous_sibling": "response_1_1601797969180"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "We have transport from the following locations:\nGuindy\nKelambakkam\nVadapalani\nThiruporur\n\nFor further details, contact our Transport Officer, Mr. Kumar @ 1234567890"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1601800007942",
+      "conditions": "@enquiry:transport",
+      "dialog_node": "response_9_1601824022920",
+      "previous_sibling": "response_8_1601823737385"
+    },
+    {
+      "type": "slot",
+      "parent": "node_5_1601823036707",
+      "variable": "$time",
+      "dialog_node": "slot_3_1601831332708",
+      "previous_sibling": "slot_6_1601830866009"
+    },
+    {
+      "type": "slot",
+      "parent": "node_5_1601823036707",
+      "variable": "$date",
+      "dialog_node": "slot_6_1601830866009",
+      "previous_sibling": "handler_1_1601830897700"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello.  Welcome to Jagannath Institute of Technology. I am a college bot, capable of providing information about the college. How may I help you?\nPlease provide mailID"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My College Bot",
+  "language": "en",
+  "description": "My first college bot for Jagannath Institute of Engineering andTechnology"
+}
